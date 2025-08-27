@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Streamlink Controller</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https: http:; media-src 'self' https: http: blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'">
+  <link rel="stylesheet" href="./index.css" />
+</head>
+<body>
+  <h2>Streamlink Controller</h2>
+  <div id="banner" class="banner">Preload failed (window.api not found). Check preload path in main.cjs.</div>
+
+  <div class="grid">
+    <!-- Left: Controls -->
+    <div class="card">
+      <label for="streamlinkPath">Streamlink path (optional)</label>
+      <input id="streamlinkPath" placeholder="/opt/homebrew/bin/streamlink or C:\\Path\\streamlink.exe" />
+
+      <label for="url">Stream URL</label>
+      <input id="url" placeholder="https://www.youtube.com/watch?v=..." inputmode="url" />
+
+      <div class="row">
+        <div>
+          <label for="quality">Stream Quality</label>
+          <input id="quality" value="best" />
+        </div>
+        <div>
+          <label for="container">Container</label>
+          <select id="container">
+            <option value="mkv" selected>MKV (robust)</option>
+            <option value="mp4">MP4 (+faststart)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="outDir">Output Folder</label>
+          <div class="row" style="gap:8px;">
+            <input id="outDir" placeholder="Pick a folder or leave blank" />
+            <button id="pick" type="button">Browse…</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button id="start" type="button">Start</button>
+        <button id="stop" type="button">Stop All</button>
+        <button id="open" type="button">Open Folder</button>
+        <button id="clearLog" type="button" onclick="document.getElementById('log').textContent=''">Clear Log</button>
+        <button id="diag" type="button">Diag</button>
+      </div>
+
+      <!-- Active Jobs -->
+      <div id="jobs" class="card" style="margin-top:12px;">
+        <table style="width:100%; border-collapse: collapse; margin-top:6px;">
+          <thead>
+            <tr>
+              <th style="text-align:left;">ID</th>
+              <th style="text-align:left;">Output</th>
+              <th style="text-align:left;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right: Live Viewer -->
+    <div class="card video-card">
+      <label>Watch Live</label>
+      <div class="video-wrapper">
+        <video id="player" controls playsinline muted crossorigin="anonymous"></video>
+      </div>
+      <div class="toolbar">
+        <button id="playLive" type="button">Play Live</button>
+        <button id="stopLive" type="button">Stop Live</button>
+        <button id="openVlc" type="button">Open in VLC</button>
+      </div>
+    </div>
+
+    <!-- Log output -->
+    <div id="log" aria-live="polite"></div>
+  </div>
+
+  <!-- Vendor (offline copies recommended) -->
+  <script src="./vendor/hls.min.js"></script>
+  <script src="./vendor/dash.all.min.js"></script>
+  <!-- Renderer -->
+  <script src="./renderer.js"></script>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© Copyright 2025 – Developed by Realm Chua</p>
+  </footer>
+</body>
+</html>

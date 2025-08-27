@@ -1,0 +1,16 @@
+{
+  "name": "streamlink-controller",
+  "version": "2.0.2",
+  "private": true,
+  "main": "main.cjs",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "node scripts/copy-vendor.cjs"
+  },
+  "devDependencies": {
+    "dashjs": "^4.7.3",
+    "electron": "^31.7.7",
+    "hls.js": "^1.5.17"
+  }
+}
